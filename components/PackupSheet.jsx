@@ -6,16 +6,16 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTnRPvq0D
 const REFRESH_INTERVAL = 3 * 60 * 1000; // Refresh every 3 minutes
 
 const COLUMNS = [
-  { key: "time", label: "TIME", width: "110px", icon: "\u23F0" },
-  { key: "staff", label: "STAFF", width: "120px", icon: "\uD83D\uDC64" },
-  { key: "espresso", label: "ESPRESSO", width: "150px", icon: "\u2615" },
-  { key: "milkAddOns", label: "MILK / ADD-ONS", width: "140px", icon: "\uD83E\uDD5B" },
-  { key: "ice", label: "ICE", width: "120px", icon: "\uD83E\uDDCA" },
-  { key: "syrup", label: "SYRUP", width: "100px", icon: "\uD83C\uDF6F" },
-  { key: "extras", label: "EXTRAS", width: "180px", icon: "\uD83D\uDCE6" },
-  { key: "cart", label: "CART", width: "140px", icon: "\uD83D\uDED2" },
-  { key: "van", label: "VAN", width: "100px", icon: "\uD83D\uDE90" },
-  { key: "repack", label: "REPACK", width: "100px", icon: "\u267B\uFE0F" }
+  { key: "time", label: "TIME", width: "160px", icon: "\u23F0" },
+  { key: "staff", label: "STAFF", width: "160px", icon: "\uD83D\uDC64" },
+  { key: "espresso", label: "ESPRESSO", width: "200px", icon: "\u2615" },
+  { key: "milkAddOns", label: "MILK / ADD-ONS", width: "200px", icon: "\uD83E\uDD5B" },
+  { key: "ice", label: "ICE", width: "160px", icon: "\uD83E\uDDCA" },
+  { key: "syrup", label: "SYRUP", width: "130px", icon: "\uD83C\uDF6F" },
+  { key: "extras", label: "EXTRAS", width: "240px", icon: "\uD83D\uDCE6" },
+  { key: "cart", label: "CART", width: "200px", icon: "\uD83D\uDED2" },
+  { key: "van", label: "VAN", width: "130px", icon: "\uD83D\uDE90" },
+  { key: "repack", label: "REPACK", width: "130px", icon: "\u267B\uFE0F" }
 ];
 
 const DAY_COLORS = {
@@ -204,7 +204,7 @@ function EditableCell({ value, onChange, colKey, placeholder, isNote }) {
         style={{
           width: "100%", minHeight: "36px", border: "2px solid #A259FF",
           borderRadius: "6px", padding: "6px 8px", fontFamily: "'DM Sans', sans-serif",
-          fontSize: isNote ? "12px" : "13px", lineHeight: "1.5", resize: "vertical",
+          fontSize: isNote ? "14px" : "16px", lineHeight: "1.5", resize: "vertical",
           outline: "none", background: "#FAFAFA", color: "#1E1E1E"
         }}
       />
@@ -217,7 +217,7 @@ function EditableCell({ value, onChange, colKey, placeholder, isNote }) {
       onClick={() => setEditing(true)}
       style={{
         cursor: "text", minHeight: "28px", padding: "4px 6px", borderRadius: "6px",
-        transition: "background 0.15s", fontSize: isNote ? "12px" : "13px", lineHeight: "1.5",
+        transition: "background 0.15s", fontSize: isNote ? "14px" : "16px", lineHeight: "1.5",
         color: value ? "#1E1E1E" : "#bbb", whiteSpace: "pre-wrap"
       }}
       onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(162,89,255,0.06)")}
@@ -239,7 +239,7 @@ function EventRow({ event, dayId, onChange, onDelete }) {
   const colors = DAY_COLORS[dayId] || DAY_COLORS[dayId.replace(/_2$/, "")] || DAY_COLORS.monday;
   return (
     <tr style={{ borderBottom: "1px solid #E0E0E0" }}>
-      <td style={{ padding: "10px 12px", position: "sticky", left: 0, zIndex: 2, background: "#fff", borderRight: "2px solid #E0E0E0", minWidth: "180px", maxWidth: "240px" }}>
+      <td style={{ padding: "12px 14px", position: "sticky", left: 0, zIndex: 2, background: "#fff", borderRight: "2px solid #E0E0E0", minWidth: "220px", maxWidth: "300px" }}>
         <EditableCell value={event.name} colKey="name" onChange={(v) => onChange({ ...event, name: v })} />
         {event.notes && (
           <div style={{ marginTop: "6px", padding: "5px 8px", background: colors.bg, borderRadius: "6px", borderLeft: `3px solid ${colors.accent}`, fontSize: "11px", color: colors.accent, fontStyle: "italic", lineHeight: 1.4 }}>
@@ -252,7 +252,7 @@ function EventRow({ event, dayId, onChange, onDelete }) {
         >{"\u2715"} remove</button>
       </td>
       {COLUMNS.map((col) => (
-        <td key={col.key} style={{ padding: "8px 10px", verticalAlign: "top", minWidth: col.width }}>
+        <td key={col.key} style={{ padding: "10px 12px", verticalAlign: "top", minWidth: col.width }}>
           <EditableCell value={event[col.key]} colKey={col.key} onChange={(v) => onChange({ ...event, [col.key]: v })} placeholder={"\u2014"} />
         </td>
       ))}
@@ -351,33 +351,33 @@ export default function PackupSheet() {
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
       {/* Header */}
-      <div style={{ background: "#1E1E1E", padding: "14px 28px", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", borderBottom: "1px solid #333", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px" }}>
+      <div style={{ background: "#1E1E1E", padding: "20px 40px", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", borderBottom: "1px solid #333", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "4px", minWidth: "220px" }}>
-          <span style={{ fontSize: "15px", fontWeight: 700, color: "#FFFFFF", letterSpacing: "1px", textTransform: "uppercase" }}>Pack-Up Sheet</span>
-          <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)", fontFamily: "'Space Mono', monospace" }}>
+          <span style={{ fontSize: "20px", fontWeight: 700, color: "#FFFFFF", letterSpacing: "1px", textTransform: "uppercase" }}>Pack-Up Sheet</span>
+          <span style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", fontFamily: "'Space Mono', monospace" }}>
             {currentTime.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })} {"\u00B7"} {currentTime.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }}>
-          <img src={LOGO_SRC} alt="Coffee Cart Minneapolis" style={{ height: "56px", objectFit: "contain" }} />
+          <img src={LOGO_SRC} alt="Coffee Cart Minneapolis" style={{ height: "72px", objectFit: "contain" }} />
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "14px", minWidth: "220px", justifyContent: "flex-end" }}>
           <div style={{ display: "flex", gap: "16px", padding: "8px 16px", background: "rgba(255,255,255,0.08)", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.12)" }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "20px", fontWeight: 700, color: "#1ABCFE", fontFamily: "'Space Mono', monospace" }}>{totalEvents}</div>
-              <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "1px" }}>Events</div>
+              <div style={{ fontSize: "28px", fontWeight: 700, color: "#1ABCFE", fontFamily: "'Space Mono', monospace" }}>{totalEvents}</div>
+              <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "1px" }}>Events</div>
             </div>
             <div style={{ width: "1px", background: "rgba(255,255,255,0.12)" }} />
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "20px", fontWeight: 700, color: "#1ABCFE", fontFamily: "'Space Mono', monospace" }}>{days.length}</div>
-              <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "1px" }}>Days</div>
+              <div style={{ fontSize: "28px", fontWeight: 700, color: "#1ABCFE", fontFamily: "'Space Mono', monospace" }}>{days.length}</div>
+              <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "1px" }}>Days</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div style={{ padding: "24px 28px 60px" }}>
+      <div style={{ padding: "32px 40px 60px" }}>
         {loading && (
           <div style={{ textAlign: "center", padding: "60px 20px", color: "#999", fontSize: "16px" }}>
             Loading events from Google Sheets...
@@ -395,16 +395,16 @@ export default function PackupSheet() {
           const isExpanded = expandedDays[day.id] !== false;
           return (
             <div key={day.id} style={{ marginBottom: "20px", borderRadius: "14px", overflow: "hidden", background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03)", border: "1px solid #E0E0E0" }}>
-              <div onClick={() => toggleDay(day.id)} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 20px", background: colors.bg, cursor: "pointer", userSelect: "none", borderBottom: isExpanded ? `2px solid ${colors.accent}22` : "none" }}>
+              <div onClick={() => toggleDay(day.id)} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 24px", background: colors.bg, cursor: "pointer", userSelect: "none", borderBottom: isExpanded ? `2px solid ${colors.accent}22` : "none" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", background: colors.accent, color: "#fff", fontSize: "14px", fontWeight: 700, fontFamily: "'Space Mono', monospace", boxShadow: `0 2px 8px ${colors.accent}44` }}>{day.day.slice(0, 2)}</span>
+                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", borderRadius: "10px", background: colors.accent, color: "#fff", fontSize: "18px", fontWeight: 700, fontFamily: "'Space Mono', monospace", boxShadow: `0 2px 8px ${colors.accent}44` }}>{day.day.slice(0, 2)}</span>
                   <div>
-                    <span style={{ fontSize: "17px", fontWeight: 700, color: colors.accent, letterSpacing: "-0.3px" }}>{day.day}</span>
-                    {day.date && <span style={{ marginLeft: "8px", fontSize: "14px", color: `${colors.accent}99`, fontFamily: "'Space Mono', monospace" }}>{day.date}</span>}
+                    <span style={{ fontSize: "22px", fontWeight: 700, color: colors.accent, letterSpacing: "-0.3px" }}>{day.day}</span>
+                    {day.date && <span style={{ marginLeft: "10px", fontSize: "18px", color: `${colors.accent}99`, fontFamily: "'Space Mono', monospace" }}>{day.date}</span>}
                   </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <span style={{ padding: "3px 10px", borderRadius: "20px", background: `${colors.accent}18`, color: colors.accent, fontSize: "12px", fontWeight: 600, fontFamily: "'Space Mono', monospace" }}>{day.events.length} event{day.events.length !== 1 ? "s" : ""}</span>
+                  <span style={{ padding: "5px 14px", borderRadius: "20px", background: `${colors.accent}18`, color: colors.accent, fontSize: "15px", fontWeight: 600, fontFamily: "'Space Mono', monospace" }}>{day.events.length} event{day.events.length !== 1 ? "s" : ""}</span>
                   <span style={{ fontSize: "18px", color: colors.accent, transition: "transform 0.25s", transform: isExpanded ? "rotate(0deg)" : "rotate(-90deg)", display: "inline-block" }}>{"\u25BE"}</span>
                 </div>
               </div>
@@ -413,9 +413,9 @@ export default function PackupSheet() {
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: "#FAFAFA" }}>
-                        <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.2px", color: "#999", position: "sticky", left: 0, zIndex: 2, background: "#FAFAFA", borderRight: "2px solid #E0E0E0", borderBottom: "1px solid #E0E0E0", minWidth: "180px" }}>Event</th>
+                        <th style={{ padding: "8px 10px", textAlign: "left", fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.2px", color: "#999", position: "sticky", left: 0, zIndex: 2, background: "#FAFAFA", borderRight: "2px solid #E0E0E0", borderBottom: "1px solid #E0E0E0", minWidth: "220px" }}>Event</th>
                         {COLUMNS.map((col) => (
-                          <th key={col.key} style={{ padding: "10px 10px", textAlign: "left", fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.2px", color: "#999", borderBottom: "1px solid #E0E0E0", minWidth: col.width, whiteSpace: "nowrap" }}>{col.icon} {col.label}</th>
+                          <th key={col.key} style={{ padding: "8px 8px", textAlign: "left", fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: "#999", borderBottom: "1px solid #E0E0E0", minWidth: col.width, whiteSpace: "nowrap" }}>{col.icon} {col.label}</th>
                         ))}
                       </tr>
                     </thead>
@@ -425,7 +425,7 @@ export default function PackupSheet() {
                       ))}
                       <tr>
                         <td colSpan={COLUMNS.length + 1} style={{ padding: "6px 12px" }}>
-                          <button onClick={() => addEvent(day.id)} style={{ background: "none", border: "1px dashed #CCC", borderRadius: "8px", padding: "8px 16px", color: "#A259FF", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontWeight: 500, transition: "all 0.2s", width: "100%" }}
+                          <button onClick={() => addEvent(day.id)} style={{ background: "none", border: "1px dashed #CCC", borderRadius: "8px", padding: "12px 20px", color: "#A259FF", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", fontSize: "16px", fontWeight: 500, transition: "all 0.2s", width: "100%" }}
                             onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#A259FF"; e.currentTarget.style.background = "#F5F0FF"; }}
                             onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#CCC"; e.currentTarget.style.background = "none"; }}
                           >+ Add Event</button>
@@ -440,7 +440,7 @@ export default function PackupSheet() {
         })}
       </div>
 
-      <div style={{ textAlign: "center", padding: "16px", color: "#999", fontSize: "11px", fontFamily: "'Space Mono', monospace", borderTop: "1px solid #E0E0E0" }}>
+      <div style={{ textAlign: "center", padding: "16px", color: "#999", fontSize: "14px", fontFamily: "'Space Mono', monospace", borderTop: "1px solid #E0E0E0" }}>
         Data from Google Sheets {"\u00B7"} Auto-refreshes every 3 min
         {lastUpdated && <span> {"\u00B7"} Last updated {lastUpdated.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}</span>}
       </div>
