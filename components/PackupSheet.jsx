@@ -238,7 +238,9 @@ function EventRow({ event, dayId, onChange, onDelete }) {
   return (
     <tr style={{ borderBottom: "1px solid #E0E0E0" }}>
       <td style={{ padding: "8px 10px", position: "sticky", left: 0, zIndex: 2, background: "#fff", borderRight: "2px solid #E0E0E0", minWidth: "180px", maxWidth: "220px" }}>
-        <EditableCell value={event.name} colKey="name" onChange={(v) => onChange({ ...event, name: v })} />
+        <div style={{ fontWeight: 700 }}>
+          <EditableCell value={event.name} colKey="name" onChange={(v) => onChange({ ...event, name: v })} />
+        </div>
         <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "3px", flexWrap: "wrap" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "3px", padding: "2px 6px", background: event.time ? colors.bg : "#f5f5f5", borderRadius: "4px", opacity: event.time ? 1 : 0.5 }}>
             <span style={{ fontSize: "10px", opacity: 0.6 }}>{"\u23F0"}</span>
