@@ -6,16 +6,14 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTnRPvq0D
 const REFRESH_INTERVAL = 3 * 60 * 1000; // Refresh every 3 minutes
 
 const COLUMNS = [
-  { key: "time", label: "TIME", width: "130px", icon: "\u23F0" },
-  { key: "staff", label: "STAFF", width: "130px", icon: "\uD83D\uDC64" },
-  { key: "espresso", label: "ESPRESSO", width: "140px", icon: "\u2615" },
-  { key: "milkAddOns", label: "MILK / ADD-ONS", width: "140px", icon: "\uD83E\uDD5B" },
-  { key: "ice", label: "ICE", width: "120px", icon: "\uD83E\uDDCA" },
-  { key: "syrup", label: "SYRUP", width: "90px", icon: "\uD83C\uDF6F" },
-  { key: "extras", label: "EXTRAS", width: "160px", icon: "\uD83D\uDCE6" },
-  { key: "cart", label: "CART", width: "140px", icon: "\uD83D\uDED2" },
-  { key: "van", label: "VAN", width: "100px", icon: "\uD83D\uDE90" },
-  { key: "repack", label: "REPACK", width: "90px", icon: "\u267B\uFE0F" }
+  { key: "espresso", label: "ESPRESSO", width: "160px", icon: "\u2615" },
+  { key: "milkAddOns", label: "MILK / ADD-ONS", width: "160px", icon: "\uD83E\uDD5B" },
+  { key: "ice", label: "ICE", width: "140px", icon: "\uD83E\uDDCA" },
+  { key: "syrup", label: "SYRUP", width: "110px", icon: "\uD83C\uDF6F" },
+  { key: "extras", label: "EXTRAS", width: "180px", icon: "\uD83D\uDCE6" },
+  { key: "cart", label: "CART", width: "160px", icon: "\uD83D\uDED2" },
+  { key: "van", label: "VAN", width: "120px", icon: "\uD83D\uDE90" },
+  { key: "repack", label: "REPACK", width: "110px", icon: "\u267B\uFE0F" }
 ];
 
 const DAY_COLORS = {
@@ -239,8 +237,35 @@ function EventRow({ event, dayId, onChange, onDelete }) {
   const colors = DAY_COLORS[dayId] || DAY_COLORS[dayId.replace(/_2$/, "")] || DAY_COLORS.monday;
   return (
     <tr style={{ borderBottom: "1px solid #E0E0E0" }}>
-      <td style={{ padding: "10px 12px", position: "sticky", left: 0, zIndex: 2, background: "#fff", borderRight: "2px solid #E0E0E0", minWidth: "160px", maxWidth: "200px" }}>
+      <td style={{ padding: "10px 12px", position: "sticky", left: 0, zIndex: 2, background: "#fff", borderRight: "2px solid #E0E0E0", minWidth: "200px", maxWidth: "260px" }}>
         <EditableCell value={event.name} colKey="name" onChange={(v) => onChange({ ...event, name: v })} />
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px", flexWrap: "wrap" }}>
+          {event.time && (
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "3px", padding: "2px 8px", background: colors.bg, borderRadius: "4px", cursor: "text" }}
+              onClick={(e) => { e.stopPropagation(); const el = e.currentTarget; el.querySelector('.cell-inner')?.click(); }}>
+              <span style={{ fontSize: "11px", opacity: 0.6 }}>{"\u23F0"}</span>
+              <EditableCell value={event.time} colKey="time" onChange={(v) => onChange({ ...event, time: v })} placeholder="Add time" isNote />
+            </div>
+          )}
+          {!event.time && (
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "3px", padding: "2px 8px", background: "#f5f5f5", borderRadius: "4px", opacity: 0.5 }}>
+              <span style={{ fontSize: "11px" }}>{"\u23F0"}</span>
+              <EditableCell value={event.time} colKey="time" onChange={(v) => onChange({ ...event, time: v })} placeholder="Add time" isNote />
+            </div>
+          )}
+          {event.staff && (
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "3px", padding: "2px 8px", background: colors.bg, borderRadius: "4px" }}>
+              <span style={{ fontSize: "11px", opacity: 0.6 }}>{"\uD83D\uDC64"}</span>
+              <EditableCell value={event.staff} colKey="staff" onChange={(v) => onChange({ ...event, staff: v })} placeholder="Add staff" isNote />
+            </div>
+          )}
+          {!event.staff && (
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "3px", padding: "2px 8px", background: "#f5f5f5", borderRadius: "4px", opacity: 0.5 }}>
+              <span style={{ fontSize: "11px" }}>{"\uD83D\uDC64"}</span>
+              <EditableCell value={event.staff} colKey="staff" onChange={(v) => onChange({ ...event, staff: v })} placeholder="Add staff" isNote />
+            </div>
+          )}
+        </div>
         {event.notes && (
           <div style={{ marginTop: "6px", padding: "5px 8px", background: colors.bg, borderRadius: "6px", borderLeft: `3px solid ${colors.accent}`, fontSize: "11px", color: colors.accent, fontStyle: "italic", lineHeight: 1.4 }}>
             <EditableCell value={event.notes} colKey="notes" onChange={(v) => onChange({ ...event, notes: v })} isNote />
@@ -413,7 +438,7 @@ export default function PackupSheet() {
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: "#FAFAFA" }}>
-                        <th style={{ padding: "8px 10px", textAlign: "left", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: "#999", position: "sticky", left: 0, zIndex: 2, background: "#FAFAFA", borderRight: "2px solid #E0E0E0", borderBottom: "1px solid #E0E0E0", minWidth: "160px" }}>Event</th>
+                        <th style={{ padding: "8px 10px", textAlign: "left", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: "#999", position: "sticky", left: 0, zIndex: 2, background: "#FAFAFA", borderRight: "2px solid #E0E0E0", borderBottom: "1px solid #E0E0E0", minWidth: "200px" }}>Event / Time / Staff</th>
                         {COLUMNS.map((col) => (
                           <th key={col.key} style={{ padding: "8px 8px", textAlign: "left", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: "#999", borderBottom: "1px solid #E0E0E0", minWidth: col.width, whiteSpace: "nowrap" }}>{col.icon} {col.label}</th>
                         ))}
