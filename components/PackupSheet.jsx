@@ -56,7 +56,7 @@ const DAY_COLORS = {
 };
 
 const DROPDOWN_OPTIONS = {
-  van: ["", "Mercedes", "Ford", "Ram"]
+  van: ["", "Mercedes", "Ford", "Ram", "Personal Car"]
 };
 
 function EditableCell({ value, onChange, colKey, placeholder, isNote }) {
